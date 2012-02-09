@@ -1,0 +1,56 @@
+/* menu styles */
+#oneLevelMenu
+{	margin: 0;
+	padding: 0;
+}
+
+#oneLevelMenu li
+{	float: left;
+	list-style: none;
+	font: 12px Tahoma, Arial;
+}
+
+#oneLevelMenu li a
+{
+	display: block;
+	background: #547CA6;
+	padding: 5px 12px;
+	text-decoration: none;
+	border-right: 1px solid white;
+	width: 70px;
+	color: #EAFFED;
+	white-space: nowrap;
+}
+
+#oneLevelMenu li a:hover
+{	background: #7A9ABC;
+}
+		
+#oneLevelMenu li ul
+{	
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	visibility: hidden;
+	border-top: 1px solid white;
+}
+		
+#oneLevelMenu li ul li
+{	
+	float: none;
+	display: inline;
+}
+			
+#oneLevelMenu li ul li a
+{	
+	width: auto;
+	background: #1F6CBD;
+	color: #FFFFFF;
+   /*-moz-opacity:0.9;  Moz + FF 透明度20%*/
+   /* opacity: 0.9;  支持CSS3的浏览器（FF 1.5也支持）透明度20%*/
+}
+			
+#oneLevelMenu li ul li a:hover
+{	
+	background: #7A9ABC;
+}

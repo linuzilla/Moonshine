@@ -1,0 +1,111 @@
+body {  
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	border: 0px;
+	color: #666666;
+	background-color: #FFFFFF;
+	font-size:11pt;
+	font-family: verdana,"Arial"; 
+}
+
+a:link {
+	color: #1B5DA3;
+	text-decoration: none;
+	background-color: transparent;
+}
+a:visited {
+	color: #1B5DA3;
+	text-decoration: none;
+	background-color: transparent;
+}
+a:hover {
+	color: #7A9ABC;
+	text-decoration:underline;
+	background-color: transparent;
+}
+
+table {
+	font-size:11pt;
+	color:#444444;
+	font-family:Verdana,Arial;
+}
+
+#header {
+	padding-top: 5px;
+	height: 35px;
+	position: relative;
+	font: 14pt Verdana,Tahoma, Arial;
+	background: #EBF5FF;
+}
+#header img {
+	display: block; /* help IE display the logo properly */
+}
+#header .headertitleurl {
+	height: 68px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 400px;
+	color: #ffffff;
+}
+
+#headernav {
+	top: 0px;
+	right: 10px;
+	position: absolute;
+	list-style: none;
+	font-size:10pt;
+}
+#headernav li {
+	border-width: 0 0 0 1px;
+	float: left;
+	padding: 0 10px;
+}
+#headernav li.first {
+	border-width: 0;
+}
+
+#pagerTable table {
+	border:0px black solid;
+	MARGIN: 10px 0px 0px 0px;
+}
+
+#pagerTable td
+{
+	text-align:center;
+	vertical-align: middle;
+	padding: 3px;
+}
+
+
+
+#container
+{
+	min-height:500px;
+}
+
+#midcolumn {
+	float: left;
+	padding-left: 25px;
+	width: 100%;
+	padding-top: 10px;
+}
+
+#footer {
+	font-size:9pt;
+	border-width: 3px 0 0 0;
+	clear: both;
+	height: 20px;
+	/*	margin-left: 175px;*/
+	margin: 0px;
+	position: relative;
+	background: #EBF5FF;
+
+}
+#footer p {
+	text-align:center;
+	margin: 0px;
+	padding: 0;
+}
+
+hr {color: #CECECE; width: 90%; height: 1px;}

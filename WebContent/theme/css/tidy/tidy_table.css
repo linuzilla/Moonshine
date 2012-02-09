@@ -1,0 +1,143 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* class table1 */
+.t1{ border:1px solid #CCC; border-collapse:collapse; font: 100% "Tahoma", "Bitstream Vera Sans", Verdana, Helvetica, sans-serif; }
+.t1 th{ background: #f79d9d; color: #333; padding: 7px; border-left: 1px solid #CCC; }
+.t1 tbody tr td{ background:#f1f0f0; padding: 7px; color:#666; }
+.t1 tbody tr:hover td{ background:#666; padding: 7px; color:#fff; }
+
+/* class table2 */
+.t2{ border: 1px solid #D4E0EE; border-collapse: collapse; font: 12pt "Trebuchet MS", Arial, sans-serif; color: #555; width:80%; }
+.t2 th{ text-align: center; background: #E6EDF5; color: #4F76A3; font-size: 100% !important; }
+.t2 tbody tr td{ background: #FCFDFE; padding:5px 10px; }
+.t2 tbody tr.odd td{ background: #F7F9FC; padding:5px 10px; }
+.t2 tr:hover th[scope=row], .t2 tr:hover td, .t2 tr.odd:hover td { 
+  background-color: #FCF5EE;
+} 
+
+/* class table3 */
+.t3{ font: 12pt "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;	border:#666666 1px solid; color: #333; width:80%;}
+.t3 th{ background: #F8F8D4; padding: 7px; color: #333; text-align: left; font-weight: normal; border:#666666 1px solid; }
+.t3 tr td{ background: #F3F5F7; padding:7px; border:#666666 1px solid; }
+.t3 tbody tr.odd td{ background: #F0F2F4; padding:7px; }
+/* class table4 */
+.t4 { font: normal 100% Verdana, Arial, Helvetica, sans-serif; border-collapse: collapse; border-top: 5px double #87CEFA; border-bottom: 5px double #87CEFA; }
+.t4 th { border: 1px solid #87CEFA; white-space: nowrap; background: #F0F8FF; }
+.t4 tbody tr.odd td{ border: 1px solid #87CEFA; }
+.t4 tbody tr td{ padding: 5px 10px; background: #fff; color: #000; 	border: 1px solid #87CEFA; }
+
+/* class table5 */
+.t5 { font: normal 100% Verdana, Arial, Helvetica, sans-serif; border-collapse: collapse; border-top: 5px thin #eb834f; border-bottom: 5px thin #eb834f; }
+.t5  th { border: 1px solid #eb834f; white-space: nowrap; background: #f4ab5d; }
+.t5 tbody tr.odd td{ border: 1px solid #eb834f; background:#fdf7de; }
+.t5 tbody tr td{ padding: 5px 10px; background: #fcf8e6; color: #000; border: 1px solid #eb834f; }
+
+
+/* class table6 (main) */
+.t6{ font-size:11pt; border-left:#666666 1px solid; border-right:#666666 1px solid; border-top:#666666 1px solid; color: #333; width:100%;}
+.t6 th { background: #91301a; padding: 3px; color: #fff; text-align: left; font-weight: normal; border-bottom:#666666 1px solid; }
+.t6 td{ border-bottom:#999999 1px solid; background:#f5f5f5; padding: 3px;}
+.t6 th a, .t6 th a:link, .t6 th a:visited {color: #FFFFFF; text-decoration:underline;}
+.t6 th a:hover { text-decoration:none;}
+
+/* tbody slecetor */
+.general tr{ background:#f3f3cb; }
+.general .tDnD_whileDrag { background-color: #afa; }
+.physical tr{ background:#d5f3f1; }
+.physical .tDnD_whileDrag { background-color: #afa; }
+.engclass{color:#bb7c23; }
+.classtime{ color:#003399; }
+.notice{ color:#FF0000; }
+.process{	color:#FF0000; }
+.descript {color:#0478b5;}
+
+/* search table (搜尋課程) */
+.search_table{ font-size: 10pt; border:#999999 1px solid; }
+.search_table td{ border:#999999 1px solid; }
+.search_table th{ background:#ecd3b4; color:#8a5919; border:#999999 1px solid; }
+.do{ color:#3c497c; }
+
+/* explaintable */
+.explaintable{ 	font-size: 12pt; border:1px #999999 solid; color: #403737; }
+.explaintable th {background:#eade75;}
+.explaintable tr{ 	background:#f4efc1; }
+.explaintable .even{ 	background:#f4ddc1; }
+.explaintable td{ 	text-align: left; padding:5px;}
+.explaintable a{	color:#1b5183; }
+
+/* intable (在人工加退選裡的table) */
+.intable{ font:90% Geneva, Arial, Helvetica, sans-serif; color:#333333l; border-collapse:collapse; border:1px solid #666666; margin-top:30px; }
+.intable tr{ border:1px solid #666666; }
+.intable th{ background: #91301a; color: #fff; font-weight: normal; }
+.intable td{ background:#f5f5f5; }
+
+/* finish 課表 */
+.fintale{ border:1px solid #dfdfdd; width:100%; }
+.fintale th{ background:url(../../image/phpThumb_generated_thumbnailpng.png) center; color:#ffffff; }		
+.fintale td, .fintale th{ border:1px solid #dfdfdd; }
+.fintale .day{	/* 設定 th 的寬度 */ 	width:16%; }
+.fintale ul{ list-style-type:none; margin: 0; padding: 0; }
+
+/*放大鏡  課程基本資料 */
+.classBase { font: 12pt "Trebuchet MS",Verdana;	border:#666666 1px solid; color: #333; }
+.classBase th{ background: #7caf68; padding: 10px; color: #fff; text-align: center; font-weight: normal; border:#666666 1px solid; }
+.classBase tr td{ background: #F3F5F7; padding:10px; border:#666666 1px solid; }
+.classBase td.subTitle{ background: #dcecce; padding:10px; }
+.classBase tbody tr.odd{ background: #F0F2F4; padding:10px;}
+
+/* 一般Form */
+.generForm{ border: 1px solid #D4E0EE; border-collapse: collapse; font: 12pt Arial, sans-serif; color: #555; }
+.generForm th{ text-align: center; background: #E6EDF5; color: #4F76A3; font-size: 100% !important;padding:7px;}
+.generForm td{ background: #FCFDFE; padding:5px 10px; margin: 5px;}
+
+
+.transparent_t {
+	font: 12pt Arial, sans-serif; color: #555;  }
+.pockettable {
+	border:1px solid #dfdfdd;
+	width:100%;
+}
+.pockettable th{
+	background: #386b9e;
+	color:#ffffff;
+}
+.pockettable td, .classtable th{
+	border:1px solid #dfdfdd;
+	vertical-align:top;
+}
+.pockettable .day {
+	width:14%;
+	line-height: 1;
+}
+
+.creditDesc {
+	background-color: #FFFFFF !important;
+	text-align: center;
+	color: #0028d2;
+	
+}
+
+/* display tag 用 */
+.pagelinks {
+	color: #333333;
+	margin: 10px;
+	font-family: Verdana, arial;
+	font-size: 11pt;
+}
+
+.pagelinks a, .pagelinks a:link, .pagelinks a:visited{
+	color: #0028d2;
+	padding: 3px;
+	font-family: Verdana, arial;
+	font-size: 11pt;
+	text-decoration:none;
+}
+
+.pagelinks a:hover{
+	text-decoration:underline; color:#007FCA; background-color: #E0EBF3;
+}
+
+.reportHeaderTable {
+	font-size: 12pt;
+}

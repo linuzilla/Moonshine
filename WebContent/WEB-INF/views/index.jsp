@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-Index.jsp
+<a href="tilesDemo">Tiles Demo</a>
 </body>
 </html>

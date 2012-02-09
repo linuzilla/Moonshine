@@ -1,0 +1,21 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+
+  <jsp:output omit-xml-declaration="yes" />
+  
+  <spring:url value="/resources/images/favicon.ico" var="favicon_url" />
+  <spring:url value="/resources/theme/css/tidy/tidy_layout.css" var="tidy_layout_url" />
+  <spring:url value="/resources/theme/css/tidy/tidy_menu.css" var="tidy_menu_url" />
+  <spring:url value="/resources/theme/css/tidy/tidy_table.css" var="tidy_table_url" />
+  <spring:url value="/resources/theme/js/jquery-1.6.2.min.js" var="jquery_min_url" />
+  <spring:url value="/resources/theme/js/jquery-ui.min.js" var="jquery_ui_min_url" />
+  <spring:url value="/resources/theme/js/one_level_menu.js" var="one_level_menu_url" />
+  
+  <link rel="shortcut icon" href="${favicon_url}" /> 
+  <link rel="stylesheet" type="text/css" href="${tidy_layout_url}" /> 
+  <link rel="stylesheet" type="text/css" href="${tidy_menu_url}" /> 
+  <link rel="stylesheet" type="text/css" href="${tidy_table_url}" /> 
+  <script type="text/javascript" src="${jquery_min_url}"><!-- jquery --></script>
+  <script type="text/javascript" src="${jquery_ui_min_url}"><!-- jquery --></script>
+  <script type="text/javascript" src="${one_level_menu_url}"><!-- menu --></script>
+
+</jsp:root>

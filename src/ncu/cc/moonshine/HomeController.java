@@ -11,7 +11,11 @@ public class HomeController {
 	@RequestMapping(method = RequestMethod.GET)
 	// @ResponseBody
 	public String home() {
-		System.out.println("Here");
-		return "index";
+		return "demo/tiles";
+	}
+	
+	@RequestMapping(value="tilesDemo", method = RequestMethod.GET)
+	public String tilesDemo() {
+		return "demo/tiles";
 	}
 }
