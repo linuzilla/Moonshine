@@ -1,4 +1,4 @@
-package ncu.cc.moonshine;
+package ncu.cc.moonshine.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
