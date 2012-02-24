@@ -39,17 +39,11 @@ public class UserControllerTest {
 	@Test
 	public void testHome() {
 		ModelMap model = new ModelMap();
-		System.out.println("Page=" + userController.home(model));
-		if (! model.containsAttribute("userBean")) {
-			System.out.println("No such attribute");
-		} else {
-			Object o = model.get("userBean");
-			if (o != null) {
-				System.out.println(o.getClass().getName());
-			} else {
-				System.out.println("null");
-			}
-		}
+		String page = userController.home(model);
+		assertTrue(model.containsAttribute("userBean"));
+		Object o = model.get("userBean");
+		assertNotNull(o);
+		assertEquals(page, UserController.USER_HOME);
 	}
 
 	@Test

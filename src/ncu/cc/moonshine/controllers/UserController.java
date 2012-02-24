@@ -19,13 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+		public static final String		USER_HOME = "usr/home";
+		
 		@Qualifier("database")
 		private @Autowired IUserService userService;
 		
 		@RequestMapping(method=RequestMethod.GET)
 		public String home(ModelMap model) {
 			model.addAttribute("userList", userService.findAll());
-			return "user/home";
+			return USER_HOME;
 		}
 		
 		@RequestMapping(value = "/add", method=RequestMethod.GET)
