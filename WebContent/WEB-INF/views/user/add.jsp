@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <form:form method="POST" commandName="userBean">
-<form:input path="name" />
+Name:<form:input path="name" /><br />
+Email:<form:input path="email" /><br />
 <input type="submit" name="submit" value="Add user" tabindex="2" />
 </form:form>

@@ -9,6 +9,11 @@
 	<configs>
 		<config>WebContent/WEB-INF/spring/dispatcher-servlet.xml</config>
 		<config>WebContent/WEB-INF/spring/applicationContext.xml</config>
+		<config>resources/META-INF/spring/commons/dataSource.xml</config>
+		<config>resources/META-INF/spring/commons/services.xml</config>
+		<config>resources/META-INF/spring/commons/propertyPlaceholder.xml</config>
+		<config>resources/META-INF/spring/testing-Context.xml</config>
+		<config>resources/META-INF/spring/testing/componentScan.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

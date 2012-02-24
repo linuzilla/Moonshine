@@ -7,6 +7,7 @@ import ncu.cc.moonshine.domain.User;
 
 public class UserServiceArrayListImpl implements IUserService {
 	private List<User>	list = new ArrayList<User>();
+	private int			lastUserid = list.size();
 
 	@Override
 	public List<User> findAll() {
@@ -24,7 +25,7 @@ public class UserServiceArrayListImpl implements IUserService {
 
 	@Override
 	public void addUser(User user) {
-		user.setUserId(list.size() + 1);
+		user.setUserId(++lastUserid);
 		list.add(user);
 	}
 

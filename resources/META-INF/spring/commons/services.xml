@@ -4,7 +4,13 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
-	<import resource="classpath*:META-INF/spring/commons/*.xml"/>
-	<import resource="classpath*:META-INF/spring/webapp/*.xml"/>
+	<bean class="ncu.cc.moonshine.services.UserServiceImpl"
+			p:entityManagerFactory-ref="entityManagerFactory">
+		<qualifier value="database" />
+	</bean>
+
+	<bean class="ncu.cc.moonshine.services.UserServiceArrayListImpl">
+		<qualifier value="arrayList" />
+	</bean>
 
 </beans>
