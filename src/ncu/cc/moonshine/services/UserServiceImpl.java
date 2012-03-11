@@ -5,20 +5,21 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceUnit;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import ncu.cc.moonshine.domain.User;
 
+@Qualifier("database")
+@Service
 public class UserServiceImpl implements IUserService {
 	// private transient EntityManager entityManager;
+	@Autowired
+	@PersistenceUnit
 	private EntityManagerFactory	entityManagerFactory;
-
-	public EntityManagerFactory getEntityManagerFactory() {
-		return entityManagerFactory;
-	}
-
-	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
-		this.entityManagerFactory = entityManagerFactory;
-	}
 
 	@Override
 	public List<User> findAll() {
@@ -71,14 +72,40 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void deleteUser(User user) {
-		// TODO Auto-generated method stub
-		
+		EntityManager entityManager = null;
+		EntityTransaction tx = null;
+		try {
+			entityManager = entityManagerFactory.createEntityManager();
+			tx = entityManager.getTransaction();
+			tx.begin();
+			entityManager.remove(entityManager.find(User.class, user.getUserId()));
+			tx.commit();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) tx.rollback();
+			throw e;
+		} finally {
+			if (entityManager != null) entityManager.close();
+		}
 	}
 
 	@Override
 	public void modifyUser(User user) {
-		// TODO Auto-generated method stub
-		
+		EntityManager entityManager = null;
+		EntityTransaction tx = null;
+		try {
+			entityManager = entityManagerFactory.createEntityManager();
+			tx = entityManager.getTransaction();
+			tx.begin();
+			entityManager.merge(user);
+			entityManager.flush();
+			tx.commit();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) tx.rollback();
+			throw e;
+		} finally {
+			if (entityManager != null) entityManager.close();
+		}
 	}
-
 }

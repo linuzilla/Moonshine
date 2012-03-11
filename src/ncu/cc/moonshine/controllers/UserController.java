@@ -19,55 +19,56 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-		public static final String		USER_HOME = "usr/home";
-		
-		@Qualifier("database")
-		private @Autowired IUserService userService;
-		
-		@RequestMapping(method=RequestMethod.GET)
-		public String home(ModelMap model) {
-			model.addAttribute("userList", userService.findAll());
-			return USER_HOME;
-		}
-		
-		@RequestMapping(value = "/add", method=RequestMethod.GET)
-		public String addUser(Model model) {
-			model.addAttribute("userBean", new User());
-			return "user/add";
-		}
-
-		@RequestMapping(value = "/add", method=RequestMethod.POST)
-		public String addUser(@ModelAttribute("userBean") User userBean, Model model) {
-			userService.addUser(userBean);
-			return "redirect:/user";
-		}
-		
-		@RequestMapping(value = "/modify/{userid}", method=RequestMethod.GET)
-		public String modifyUser(@PathVariable Integer userid, Model model) {
-			model.addAttribute("userBean", userService.getUserById(userid));
-			return "user/modify";
-		}
-		
-		@RequestMapping(value = "/modify/{userid}", method=RequestMethod.POST)
-		public String modifyUser(@ModelAttribute("userBean") User userBean, Model model) {
-			userService.modifyUser(userBean);
-			return "redirect:/user";
-		}
-		
-		@RequestMapping(value = "/delete", method=RequestMethod.GET)
-		public String deleteUser(@RequestParam("userId") Integer userid) {
-			userService.deleteUser(userService.getUserById(userid));
-			return "redirect:/user";
-		}
-		
-		@ExceptionHandler(RuntimeException.class)
-		public String handleRuntimeException(RuntimeException e) {
-			return "redirect:/user";
-		}
-		
-		@ExceptionHandler(Exception.class)
-		@ResponseBody
-		public String handleException(Exception e) {
-			return e.getMessage();
-		}
+	@Autowired
+	@Qualifier("database")
+	private IUserService userService;
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public String home(Model model) {
+		model.addAttribute("userList", userService.findAll());
+		return "user/home";
 	}
+	
+	@RequestMapping(value = "/add", method=RequestMethod.GET)
+	public String addUser(Model model) {
+		model.addAttribute("userBean", new User());
+		return "user/add";
+	}
+
+	@RequestMapping(value = "/add", method=RequestMethod.POST)
+	public String addUser(@ModelAttribute("userBean") User userBean, Model model) {
+		userService.addUser(userBean);
+		return "redirect:/user";
+	}
+	
+	@RequestMapping(value = "/modify/{userid}", method=RequestMethod.GET)
+	public String modifyUser(@PathVariable Integer userid, Model model) {
+		model.addAttribute("userBean", userService.getUserById(userid));
+		return "user/modify";
+	}
+	
+	@RequestMapping(value = "/modify/{userid}", method=RequestMethod.POST)
+	public String modifyUser(@ModelAttribute("userBean") User userBean, @PathVariable Integer userid, Model model) {
+		userBean.setUserId(userid);
+		userService.modifyUser(userBean);
+		return "redirect:/user";
+	}
+	
+	@RequestMapping(value = "/delete", method=RequestMethod.GET)
+	public String deleteUser(@RequestParam("userId") Integer userid) {
+		userService.deleteUser(userService.getUserById(userid));
+		return "redirect:/user";
+	}
+	
+	@ExceptionHandler(RuntimeException.class)
+	public String handleRuntimeException(RuntimeException e) {
+		e.printStackTrace();
+		return "redirect:/";
+	}
+	
+	@ExceptionHandler(Exception.class)
+	@ResponseBody
+	public String handleException(Exception e) {
+		return e.getMessage();
+	}
+}

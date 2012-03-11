@@ -16,7 +16,7 @@
 	
 	<mvc:annotation-driven/>
 	<mvc:resources location="/" mapping="/resources/**"/>
-	<mvc:default-servlet-handler/>
+<!-- 	<mvc:default-servlet-handler/> -->
 	
 	
 	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"
@@ -33,7 +33,7 @@
 	    <property name="definitions">
 	      <list>
 	        <value>/WEB-INF/layouts/layouts.xml</value>
-<!-- 	        <value>/WEB-INF/views/**/views.xml</value> -->
+	        <value>/WEB-INF/views/**/views.xml</value>
 	      </list>
 	    </property>
 	</bean>

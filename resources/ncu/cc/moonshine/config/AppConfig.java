@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
-	private @Value("${jdbc.url}") String url;
-	private @Value("${jdbc.username}") String username;
-	private @Value("${jdbc.password}") String password;
-	
-	@Bean
-	public IUserService userService() {
-		return new UserServiceArrayListImpl();
-	}
+//	private @Value("${jdbc.url}") String url;
+//	private @Value("${jdbc.username}") String username;
+//	private @Value("${jdbc.password}") String password;
+//	
+//	@Bean
+//	public IUserService userService() {
+//		return new UserServiceArrayListImpl();
+//	}
 }

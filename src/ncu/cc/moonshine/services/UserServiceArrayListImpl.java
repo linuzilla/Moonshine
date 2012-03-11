@@ -3,8 +3,11 @@ package ncu.cc.moonshine.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import ncu.cc.moonshine.domain.User;
 
+@Service
 public class UserServiceArrayListImpl implements IUserService {
 	private List<User>	list = new ArrayList<User>();
 	private int			lastUserid = list.size();

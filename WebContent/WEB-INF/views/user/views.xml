@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+ 
+	<definition extends="tidy" name="user/home">
+        <put-attribute name="body" value="/WEB-INF/views/user/home.jsp"/>
+    </definition>
+    
+    <definition extends="tidy" name="user/add">
+        <put-attribute name="body" value="/WEB-INF/views/user/add.jsp"/>
+    </definition>
+    
+    <definition extends="tidy" name="user/modify">
+        <put-attribute name="body" value="/WEB-INF/views/user/modify.jsp"/>
+    </definition>
+    
+    <definition extends="tidy" name="user/delete">
+        <put-attribute name="body" value="/WEB-INF/views/user/delete.jsp"/>
+    </definition>
+
+</tiles-definitions>
