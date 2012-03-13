@@ -1,35 +1,46 @@
 package ncu.cc.moonshine.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.io.Serializable;
+import javax.persistence.*;
 
+import java.util.List;
+
+
+/**
+ * The persistent class for the user database table.
+ * 
+ */
 @Entity
-@Table(name = "TBL_USER")
-// @Table(name="tbl_user", catalog="SA", schema="mydb")
-@NamedQueries({
-	@NamedQuery(name = "User.AllUsers", query = "SELECT a FROM User a"),
-	@NamedQuery(name = "User.User4Name", query = "SELECT a FROM User a WHERE name=:name"),
-	@NamedQuery(name = "User.MaxId", query = "SELECT MAX(a.id) FROM User a"),
-	@NamedQuery(name = "User.User4Id", query = "SELECT a FROM User a WHERE userId=:id")
-})
-public class User implements java.io.Serializable {
-	private static final long serialVersionUID = -981317087467707057L;
+@Table(name="user")
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private Integer	userId;
-	
-	@Column(name = "name")
-	private String	name;
-	
-	@Column(name = "email")
-	private String	email;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id", nullable=false)
+	private Integer userId;
+
+	@Column(nullable=false, length=255)
+	private String email;
+
+	@Column(nullable=false, length=255)
+	private String name;
+
+	//bi-directional many-to-many association to Role
+    @ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(
+		name="user_role"
+		, joinColumns={
+			@JoinColumn(name="user_id", nullable=false)
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="role_id", nullable=false)
+			}
+		)
+	private List<Role> roles;
+
+    public User() {
+    }
 
 	public Integer getUserId() {
 		return userId;
@@ -39,19 +50,28 @@ public class User implements java.io.Serializable {
 		this.userId = userId;
 	}
 
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public List<Role> getRoles() {
+		return this.roles;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
+	
 }

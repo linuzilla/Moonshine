@@ -4,5 +4,6 @@
 <form:form method="POST" commandName="userBean">
 Name:<form:input path="name" /><br />
 Email:<form:input path="email" /><br />
+Role:<form:checkboxes path="roleNames" items="${roles}" itemValue="roleName" itemLabel="roleName"/>
 <input type="submit" name="submit" value="Modify user" tabindex="2" />
 </form:form>

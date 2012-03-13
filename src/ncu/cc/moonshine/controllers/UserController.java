@@ -1,13 +1,23 @@
 package ncu.cc.moonshine.controllers;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import ncu.cc.moonshine.domain.Role;
 import ncu.cc.moonshine.domain.User;
+import ncu.cc.moonshine.domain.formbeans.UserFormBean;
+import ncu.cc.moonshine.services.IRoleService;
 import ncu.cc.moonshine.services.IUserService;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +30,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user")
 public class UserController {
 	@Autowired
-	@Qualifier("database")
-	private IUserService userService;
+	@Qualifier("dao")
+	private IUserService		userService;
+	@Autowired
+	private IRoleService		roleService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String home(Model model) {
@@ -31,26 +43,61 @@ public class UserController {
 	
 	@RequestMapping(value = "/add", method=RequestMethod.GET)
 	public String addUser(Model model) {
-		model.addAttribute("userBean", new User());
+		model.addAttribute("userBean", new UserFormBean());
+		// model.addAttribute("userBean", new User());
+		model.addAttribute("roles", roleService.findAll());
 		return "user/add";
 	}
 
 	@RequestMapping(value = "/add", method=RequestMethod.POST)
-	public String addUser(@ModelAttribute("userBean") User userBean, Model model) {
-		userService.addUser(userBean);
+	public String addUser(@ModelAttribute("userBean") UserFormBean userBean, Model model) throws IllegalAccessException, InvocationTargetException {
+		User user = userFrom2user(userBean);
+		userService.addUser(user);
 		return "redirect:/user";
+	}
+
+	private User userFrom2user(UserFormBean userBean)
+			throws IllegalAccessException, InvocationTargetException {
+		User user = new User();
+		
+		BeanUtils.copyProperties(user, userBean);
+		
+		if (userBean.getRoleNames() != null) {
+			List<Role> roleList = new ArrayList<Role>();
+			
+			for (Role role: roleService.findAll()) {
+				for (String roleName: userBean.getRoleNames()) {
+					if (roleName.equals(role.getRoleName())) {
+						roleList.add(role);
+					}
+				}
+			}
+			user.setRoles(roleList);
+		}
+		return user;
 	}
 	
 	@RequestMapping(value = "/modify/{userid}", method=RequestMethod.GET)
-	public String modifyUser(@PathVariable Integer userid, Model model) {
-		model.addAttribute("userBean", userService.getUserById(userid));
+	public String modifyUser(@PathVariable Integer userid, Model model) throws IllegalAccessException, InvocationTargetException {
+		UserFormBean formBean = new UserFormBean();
+		User user = userService.getUserById(userid);
+		BeanUtils.copyProperties(formBean, user);
+		if (user.getRoles() != null && user.getRoles().size() > 0) {
+			Set<String> roleNames = new HashSet<String>();
+			for (Role role: user.getRoles()) {
+				roleNames.add(role.getRoleName());
+			}
+			formBean.setRoleNames(roleNames);
+		}
+		model.addAttribute("userBean", formBean);
+		model.addAttribute("roles", roleService.findAll());
 		return "user/modify";
 	}
 	
 	@RequestMapping(value = "/modify/{userid}", method=RequestMethod.POST)
-	public String modifyUser(@ModelAttribute("userBean") User userBean, @PathVariable Integer userid, Model model) {
+	public String modifyUser(@ModelAttribute("userBean") UserFormBean userBean, @PathVariable Integer userid, Model model) throws IllegalAccessException, InvocationTargetException {
 		userBean.setUserId(userid);
-		userService.modifyUser(userBean);
+		userService.modifyUser(userFrom2user(userBean));
 		return "redirect:/user";
 	}
 	
