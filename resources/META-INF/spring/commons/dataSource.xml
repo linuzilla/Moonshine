@@ -17,15 +17,53 @@
 			p:maxStatements="0"
 			p:acquireIncrement="5"/>
 			
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		p:dataSource-ref="dataSource" />
+	<bean id="dataSourceRemote" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
+			p:jdbcUrl="${database.remote.url}"
+			p:user="${database.remote.username}"
+			p:password="${database.remote.password}"
+			p:driverClass="${database.remote.driverClassName}"
+			p:maxPoolSize="10"
+			p:minPoolSize="2"
+			p:idleConnectionTestPeriod="5"
+			p:maxStatements="0"
+			p:acquireIncrement="2"/>
+			
+<!-- 	<bean id="entityManagerFactory" -->
+<!-- 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" -->
+<!-- 		p:dataSource-ref="dataSource" /> -->
 		
 	<bean id="transactionManager"
 		class="org.springframework.orm.jpa.JpaTransactionManager"
     		p:entityManagerFactory-ref="entityManagerFactory" />
     		
 	<tx:annotation-driven mode="proxy" transaction-manager="transactionManager"/>
+	
+	<bean id="persistenceUnitManager" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath*:META-INF/persistence.xml</value>
+				<value>classpath*:META-INF/persistence.remote.xml</value>
+			</list>
+		</property>
+		<property name="dataSources">
+			<map>
+				<entry key="localDataSource" value-ref="dataSource" />
+				<entry key="remoteDataSource" value-ref="dataSourceRemote" />
+			</map>
+		</property>
+		<property name="defaultDataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+				p:showSql="true"
+				p:generateDdl="true">
+			</bean>
+		</property>
+		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
+		<property name="persistenceUnitName" value="localjpa"/>
+	</bean>
 		
 <!-- 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" -->
 <!-- 		p:dataSource-ref="dataSource" -->

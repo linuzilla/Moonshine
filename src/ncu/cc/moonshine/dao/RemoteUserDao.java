@@ -5,12 +5,12 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
-import ncu.cc.commons.jpa.BaseDao;
-import ncu.cc.moonshine.domain.Role;
+import ncu.cc.commons.jpa.AbstractBaseDao;
+import ncu.cc.moonshine.domain.RemoteUser;
 
 @Repository
-public class RoleDao extends BaseDao<Role> implements IRoleDao {
-	@PersistenceContext(unitName = "persistenceUnit")
+public class RemoteUserDao extends AbstractBaseDao<RemoteUser> implements IRemoteUserDao {
+	@PersistenceContext(unitName = "remoteUnit")
 	protected EntityManager entityManager;
 	
 	@Override
