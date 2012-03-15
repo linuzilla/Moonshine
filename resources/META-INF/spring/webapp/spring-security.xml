@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+<!--
+Expression	Description
+hasRole([role])	Returns true if the current principal has the specified role.
+hasAnyRole([role1,role2])	Returns true if the current principal has any of the supplied roles (given as a comma-separated list of strings)
+principal	Allows direct access to the principal object representing the current user
+authentication	Allows direct access to the current Authentication object obtained from the SecurityContext
+permitAll	Always evaluates to true
+denyAll	Always evaluates to false
+isAnonymous()	Returns true if the current principal is an anonymous user
+isRememberMe()	Returns true if the current principal is a remember-me user
+isAuthenticated()	Returns true if the user is not anonymous
+isFullyAuthenticated()	Returns true if the user is not an anonymous or a remember-me user
+-->
+
+	<http use-expressions="true">
+		<form-login />
+		<logout logout-url="/logout" />
+		<intercept-url pattern="/resources/**" access="permitAll()" />
+		<intercept-url pattern="/**" access="isAuthenticated()" />
+	</http>
+	
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider>
+			<user-service>
+				<user name="bob" authorities="" password="bob" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+</b:beans>
