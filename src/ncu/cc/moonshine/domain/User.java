@@ -11,7 +11,11 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="user")
+@Table(name="TBL_USER")
+@NamedQueries({
+	@NamedQuery(name = "findAll", query = "SELECT a FROM User a"),
+	@NamedQuery(name = "findByName", query = "SELECT a FROM User a WHERE name=:name")
+})
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,11 +29,14 @@ public class User implements Serializable {
 
 	@Column(nullable=false, length=255)
 	private String name;
+	
+	@Column(name="created_by", nullable=false, length=255)
+	private String createdBy;
 
 	//bi-directional many-to-many association to Role
     @ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
-		name="user_role"
+		name="TBL_USER_ROLE"
 		, joinColumns={
 			@JoinColumn(name="user_id", nullable=false)
 			}
@@ -72,6 +79,14 @@ public class User implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 	
 }

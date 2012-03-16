@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="role_rights")
+@Table(name="TBL_ROLE_RIGHTS")
 public class RoleRight implements Serializable {
 	private static final long serialVersionUID = 1L;
 

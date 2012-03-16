@@ -9,12 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ncu.cc.moonshine.dao.IUserDao;
 import ncu.cc.moonshine.domain.User;
+import ncu.cc.moonshine.security.UserContextService;
 
 @Service
 @Qualifier("dao")
 public class UserService3rdImpl implements IUserService {
 	@Autowired
 	private IUserDao		userDao;
+	
+	@Autowired
+	private UserContextService userContextService;
 
 	@Override
 	public List<User> findAll() {
@@ -29,7 +33,7 @@ public class UserService3rdImpl implements IUserService {
 	@Transactional
 	@Override
 	public void addUser(User user) {
-		// userDao.persist(user);
+		user.setCreatedBy(userContextService.getCurrentUser());
 		userDao.saveOrUpdate(user);
 	}
 

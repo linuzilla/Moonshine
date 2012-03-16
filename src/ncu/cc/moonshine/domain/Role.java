@@ -10,7 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="roles")
+@Table(name="TBL_ROLE")
 public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 

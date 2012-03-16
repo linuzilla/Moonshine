@@ -30,6 +30,7 @@ isFullyAuthenticated()	Returns true if the user is not an anonymous or a remembe
 		<authentication-provider>
 			<user-service>
 				<user name="bob" authorities="" password="bob" />
+				<user name="jobs" authorities="" password="jobs" />
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>

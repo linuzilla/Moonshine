@@ -51,15 +51,13 @@ public class UserController {
 
 	@RequestMapping(value = "/add", method=RequestMethod.POST)
 	public String addUser(@ModelAttribute("userBean") UserFormBean userBean, Model model) throws IllegalAccessException, InvocationTargetException {
-		User user = userFrom2user(userBean);
+		User user = userFrom2user(new User(), userBean);
 		userService.addUser(user);
 		return "redirect:/user";
 	}
 
-	private User userFrom2user(UserFormBean userBean)
-			throws IllegalAccessException, InvocationTargetException {
-		User user = new User();
-		
+	private User userFrom2user(User user, UserFormBean userBean)
+			throws IllegalAccessException, InvocationTargetException {	
 		BeanUtils.copyProperties(user, userBean);
 		
 		if (userBean.getRoleNames() != null) {
@@ -96,8 +94,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/modify/{userid}", method=RequestMethod.POST)
 	public String modifyUser(@ModelAttribute("userBean") UserFormBean userBean, @PathVariable Integer userid, Model model) throws IllegalAccessException, InvocationTargetException {
-		userBean.setUserId(userid);
-		userService.modifyUser(userFrom2user(userBean));
+		User u = userService.getUserById(userid);
+		userBean.setUserId(u.getUserId());
+		userBean.setCreatedBy(u.getCreatedBy());
+		userService.modifyUser(userFrom2user(u, userBean));
 		return "redirect:/user";
 	}
 	
