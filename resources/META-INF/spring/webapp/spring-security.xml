@@ -24,16 +24,19 @@ isFullyAuthenticated()	Returns true if the user is not an anonymous or a remembe
 		<logout logout-url="/logout" />
 		<intercept-url pattern="/login**" access="permitAll()" />
 		<intercept-url pattern="/resources/**" access="permitAll()" />
+		<intercept-url pattern="/user/add**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/user/modify**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/user/delete**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 	</http>
 	
 	<authentication-manager alias="authenticationManager">
-<!-- 		<authentication-provider> -->
-<!-- 			<user-service> -->
-<!-- 				<user name="bob" authorities="" password="bob" /> -->
-<!-- 				<user name="jobs" authorities="" password="jobs" /> -->
-<!-- 			</user-service> -->
-<!-- 		</authentication-provider> -->
+		<authentication-provider>
+			<password-encoder hash="md5" />
+			<user-service>
+				<user name="admin" password="21232f297a57a5a743894a0e4a801fc3" authorities="ROLE_ADMIN" />
+			</user-service>
+		</authentication-provider>
 		<authentication-provider ref="authenticationProvider"/>
 	</authentication-manager>
 </b:beans>
