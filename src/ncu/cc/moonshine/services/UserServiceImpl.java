@@ -108,4 +108,10 @@ public class UserServiceImpl implements IUserService {
 			if (entityManager != null) entityManager.close();
 		}
 	}
+
+	@Override
+	public User getUserByName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

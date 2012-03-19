@@ -12,8 +12,12 @@
     <put-attribute name="footer" value="/WEB-INF/layouts/tidy/footer.jspx" />
   </definition>
   
-  <definition extends="tidy" name="demo/tiles">
-        <put-attribute name="body" value="/WEB-INF/views/tiles.jspx"/>
-    </definition>
+	<definition extends="tidy" name="login">
+		<put-attribute name="body" value="/WEB-INF/views/login.jspx"/>
+	</definition>
+  
+	<definition extends="tidy" name="index">
+		<put-attribute name="body" value="/WEB-INF/views/index.jspx"/>
+	</definition>
 
 </tiles-definitions>

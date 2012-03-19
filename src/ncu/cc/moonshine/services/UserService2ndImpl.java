@@ -53,4 +53,10 @@ public class UserService2ndImpl implements IUserService {
 
 		entityManager.flush();
 	}
+
+	@Override
+	public User getUserByName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

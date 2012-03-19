@@ -10,4 +10,5 @@ public interface IUserService {
 	public void addUser(User user);
 	public void deleteUser(User user);
 	public void modifyUser(User user);
+	public User getUserByName(String username);
 }

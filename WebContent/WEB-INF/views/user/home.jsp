@@ -2,8 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <spring:url value="/user/modify" var="modify_url" />
 <spring:url value="/user/delete" var="delete_url" />
+
+<h1>Hi, <security:authentication property="principal.username" /></h2>
+
 <table>
 <c:forEach var="user" items="${userList}">
 	<tr>

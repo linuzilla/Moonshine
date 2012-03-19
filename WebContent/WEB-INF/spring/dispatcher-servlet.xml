@@ -17,6 +17,9 @@
 	<mvc:annotation-driven/>
 	<mvc:resources location="/" mapping="/resources/**"/>
 <!-- 	<mvc:default-servlet-handler/> -->
+
+	<mvc:view-controller path="/login" view-name="login"/>
+
 	
 	<bean id="messageSource"
     		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"

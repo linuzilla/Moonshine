@@ -40,4 +40,10 @@ public class UserServiceArrayListImpl implements IUserService {
 	@Override
 	public void modifyUser(User user) {
 	}
+
+	@Override
+	public User getUserByName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

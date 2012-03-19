@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="UTF-8" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+
+    <jsp:output omit-xml-declaration="yes"/>
+    <spring:url value="/j_spring_security_check" var="login_check_url" />
+    <form name='f' action='${login_check_url}' method='POST'>
+ 	<table>
+    <tr><td>User:</td><td><input type='text' name='j_username' value='' /></td></tr>
+    <tr><td>Password:</td><td><input type='password' name='j_password' /></td></tr>
+    <tr><td colspan='2'><input name="submit" type="submit" value="Login" /></td></tr>
+    </table>
+    </form>
+</jsp:root>

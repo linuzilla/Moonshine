@@ -48,4 +48,11 @@ public class UserService3rdImpl implements IUserService {
 	public void modifyUser(User user) {
 		userDao.merge(user);
 	}
+
+	@Override
+	public User getUserByName(String username) {
+		List<User> list = userDao.findByProperty("name", username);
+		if (list != null && list.size() > 0) return list.get(0);
+		return null;
+	}
 }
