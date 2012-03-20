@@ -6,14 +6,15 @@
 	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
 <jsp:output omit-xml-declaration="yes" />
 <spring:url value="/topbar" var="topbar_url" />
+<spring:url value="/" var="home_url" />
 <ul id="headernav"> 
 		<li class="first"><a class="smallText" title="Small Text" href="#" onclick="setActiveStyleSheet('small');return false;">A</a> <a class="largeText" title="Large Text" href="#" onclick="setActiveStyleSheet('large');return false;">A</a></li> 
 <c:choose>
-	<c:when test="${user == null}">
-		<li><a href="${tapbar_url}/login"><spring:message code="topbar.login" text="Login" /></a></li>
+	<c:when test="${pageContext['request'].userPrincipal == null}">
+		<li><a href="${home_url}login"><spring:message code="topbar.login" text="Login" /></a></li>
 	</c:when>
 	<c:otherwise>
-		<li><a href="${topbar_url}/logout"><spring:message code="topbar.logout" text="Logout" /> (<security:authentication property="name"/>)</a></li>
+		<li><a href="${home_url}logout"><spring:message code="topbar.logout" text="Logout" /> (<security:authentication property="name"/>)</a></li>
 	</c:otherwise>
 </c:choose>
 	<spring:url value="/topbar/language" var="language_url" />

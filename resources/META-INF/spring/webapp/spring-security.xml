@@ -20,7 +20,7 @@ isFullyAuthenticated()	Returns true if the user is not an anonymous or a remembe
 -->
 
 	<http use-expressions="true">
-		<form-login login-page="/login" />
+		<form-login login-page="/login" authentication-failure-url="/login?login_error=t" />
 		<logout logout-url="/logout" />
 		<intercept-url pattern="/login**" access="permitAll()" />
 		<intercept-url pattern="/resources/**" access="permitAll()" />
