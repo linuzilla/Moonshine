@@ -15,6 +15,7 @@
 		<config>resources/META-INF/spring/testing-Context.xml</config>
 		<config>resources/META-INF/spring/testing/componentScan.xml</config>
 		<config>resources/META-INF/spring/webapp/spring-security.xml</config>
+		<config>resources/META-INF/spring/webapp/menu-builder.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

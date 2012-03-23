@@ -8,7 +8,12 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ClassFinderImpl implements IClassFinder {
+	private static final Logger logger = LoggerFactory.getLogger(ClassFinderImpl.class);
+	
 	public Class<?>[] findClassesByPackage(String packageName) throws IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		assert classLoader != null;
@@ -19,7 +24,7 @@ public class ClassFinderImpl implements IClassFinder {
 			URL resource = resources.nextElement();
 			dirs.add(new File(URLDecoder.decode(resource.getFile(), "latin1")));
 		}
-		// System.out.println(dirs.size() + " dirs");
+		logger.info(dirs.size() + " dirs");
 		ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
 		for (File directory : dirs) {
 			classes.addAll(findClasses(directory, packageName));
@@ -30,12 +35,12 @@ public class ClassFinderImpl implements IClassFinder {
 	private static List<Class<?>> findClasses(File directory, String packageName) {
 		List<Class<?>> classes = new ArrayList<Class<?>>();
 		if (!directory.exists()) {
-			// System.out.println("Directory:" + directory.getAbsolutePath() + " not exists");
+			logger.warn("Directory:" + directory.getAbsolutePath() + " not exists");
 			return classes;
 		}
 		File[] files = directory.listFiles();
 		for (File file : files) {
-			// System.out.println(file.getName());
+			logger.info(file.getName());
 			if (file.isDirectory()) {
 				assert !file.getName().contains(".");
 				classes.addAll(findClasses(file, packageName + "."

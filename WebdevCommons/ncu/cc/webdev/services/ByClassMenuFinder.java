@@ -5,7 +5,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import ncu.cc.webdev.annotations.MenuItem;
-import ncu.cc.webdev.domain.WebMenuBar;
+import ncu.cc.webdev.domain.WebMenuItem;
+import ncu.cc.webdev.domain.WebMenuNavigator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,12 @@ public class ByClassMenuFinder implements IMenuFinder {
 		this.finder = finder;
 	}
 
-	public void addItemsToMenuBar(WebMenuBar menuBar) {
+	@Override
+	public void addItems(WebMenuNavigator menuBar) {
 		try {
 			for (String name: packageName) {
+				logger.info("PackageName: " + name);
+				
 				Class<?>[] classes = finder.findClassesByPackage(name);
 				
 				for (int i = 0; i < classes.length; i++) {
@@ -43,7 +47,7 @@ public class ByClassMenuFinder implements IMenuFinder {
 		}
 	}
 
-	private void findMenuByClass(WebMenuBar menuBar, Class<?> clazz) {
+	private void findMenuByClass(WebMenuNavigator menuBar, Class<?> clazz) {
 		String[]	urls;
 		
 		if (clazz.isAnnotationPresent(Controller.class)) {
@@ -64,7 +68,7 @@ public class ByClassMenuFinder implements IMenuFinder {
 		}
 	}
 
-	private void findMenuByMethod(WebMenuBar menuBar, Class<?> clazz, String[] parentUrls, Method method) {
+	private void findMenuByMethod(WebMenuNavigator menuBar, Class<?> clazz, String[] parentUrls, Method method) {
 		if (method.isAnnotationPresent(RequestMapping.class)) {
 			if (method.isAnnotationPresent(MenuItem.class)) {
 				String[] urls = method.getAnnotation(RequestMapping.class).value();
@@ -83,18 +87,7 @@ public class ByClassMenuFinder implements IMenuFinder {
 		}
 	}
 
-	private void analyzePath(WebMenuBar menuBar, String path, Class<?> clazz, Method method) {
-//		String[]	paths = path.split("/");
-		logger.info(path);
+	private void analyzePath(WebMenuNavigator menuBar, String path, Class<?> clazz, Method method) {
 		menuBar.addMenuItem(path, clazz, method);
-//		
-//		System.out.printf("{%s}:", clazz.getName());
-//		for (int i = 1; i < paths.length; i++) {
-//			System.out.printf("[%s]", paths[i]);
-//		}
-//		if (method != null) {
-//			System.out.printf("  Method:[%s]", method.getName());
-//		}
-//		System.out.println();
 	}
 }

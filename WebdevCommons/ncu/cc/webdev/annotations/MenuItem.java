@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface MenuItem {
 	int value() default -1;
-	String[] role() default "";
+	String[]		authorities() default "";
 }

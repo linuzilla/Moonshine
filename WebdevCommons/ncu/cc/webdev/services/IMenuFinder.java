@@ -1,7 +1,10 @@
 package ncu.cc.webdev.services;
 
-import ncu.cc.webdev.domain.WebMenuBar;
+import java.util.List;
+
+import ncu.cc.webdev.domain.WebMenuNavigator;
+import ncu.cc.webdev.domain.WebMenuItem;
 
 public interface IMenuFinder {
-	public void addItemsToMenuBar(WebMenuBar menuBar);
+	public void addItems(WebMenuNavigator menuBar);
 }

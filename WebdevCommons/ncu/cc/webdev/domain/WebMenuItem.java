@@ -10,6 +10,7 @@ public class WebMenuItem {
 	private List<WebMenuItem>	subMenu = new ArrayList<WebMenuItem>();
 	private Class<?>				clazz;
 	private Method				method;
+	private WebMenuItem			parent = null;
 	
 	public String getTag() {
 		return tag;
@@ -40,5 +41,11 @@ public class WebMenuItem {
 	}
 	public void setMethod(Method method) {
 		this.method = method;
+	}
+	public WebMenuItem getParent() {
+		return parent;
+	}
+	public void setParent(WebMenuItem parent) {
+		this.parent = parent;
 	}
 }

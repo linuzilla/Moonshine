@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import ncu.cc.webdev.annotations.MenuItem;
 
-public class WebAppMenuBar {
-	private static final Logger logger = LoggerFactory.getLogger(WebAppMenuBar.class);
+public class WebMenuNavigator {
+	private static final Logger logger = LoggerFactory.getLogger(WebMenuNavigator.class);
 	private List<WebMenuItem>	menuBar = new ArrayList<WebMenuItem>();
 
 	public List<WebMenuItem> getNavigatorBar() {
@@ -34,8 +34,9 @@ public class WebAppMenuBar {
 	public void addMenuItem(String path, Class<?> clazz, Method method) {
 		String[]	paths = path.split("/");
 		
-		// System.out.printf("{%s}:", clazz.getName());
+		logger.info(path + ", " + clazz.getName() + ", " + (method == null ? "null" : method.getName()));
 		List<WebMenuItem>	list = menuBar;
+		WebMenuItem parent = null;
 		
 		
 		for (int i = 1; i < paths.length; i++) {
@@ -50,6 +51,7 @@ public class WebAppMenuBar {
 			if (ptr == null) {
 				ptr = new WebMenuItem();
 				ptr.setTag(paths[i]);
+				ptr.setParent(parent);
 				list.add(ptr);
 				//System.out.printf("[%s][%d][%s] (New)%n", path, i, paths[i]);
 			} else {
@@ -68,6 +70,7 @@ public class WebAppMenuBar {
 			}
 			
 			list = ptr.getSubMenu();
+			parent = ptr;
 		}
 	}
 

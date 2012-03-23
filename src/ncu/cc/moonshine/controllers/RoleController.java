@@ -2,6 +2,7 @@ package ncu.cc.moonshine.controllers;
 
 import ncu.cc.moonshine.domain.Role;
 import ncu.cc.moonshine.services.IRoleService;
+import ncu.cc.webdev.annotations.MenuItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@MenuItem
 @RequestMapping("/role")
 public class RoleController {
 	public static final String	HOME_PAGE = "role/home";
@@ -28,12 +30,14 @@ public class RoleController {
 	@Autowired
 	private IRoleService roleService;
 	
+	@MenuItem
 	@RequestMapping(method=RequestMethod.GET)
 	public String home(ModelMap model) {
 		model.addAttribute("roles", roleService.findAll());
 		return HOME_PAGE;
 	}
 	
+	@MenuItem
 	@RequestMapping(value = "/add", method=RequestMethod.GET)
 	public String addRole(ModelMap model) {
 		model.addAttribute("roleBean", new Role());
