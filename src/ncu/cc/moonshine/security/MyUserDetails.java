@@ -1,11 +1,13 @@
-package ncu.cc.moonshine.domain;
+package ncu.cc.moonshine.security;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.beanutils.BeanUtils;
+import ncu.cc.moonshine.domain.Role;
+import ncu.cc.moonshine.domain.User;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,18 +22,13 @@ public class MyUserDetails extends User implements UserDetails {
 	
 	public MyUserDetails(User user) {
 		super();
-		try {
-			BeanUtils.copyProperties(this, user);
-			authorities = new HashSet<GrantedAuthority>();
-			if (user.getRoles() != null && user.getRoles().size() > 0) {
-				for (Role role: user.getRoles()) {
-					authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-				}
+
+		BeanUtils.copyProperties(user, this);
+		authorities = new HashSet<GrantedAuthority>();
+		if (user.getRoles() != null && user.getRoles().size() > 0) {
+			for (Role role: user.getRoles()) {
+				authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
 			}
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
 		}
 	}
 

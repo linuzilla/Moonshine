@@ -1,6 +1,5 @@
 package ncu.cc.moonshine.security;
 
-import ncu.cc.moonshine.domain.MyUserDetails;
 import ncu.cc.moonshine.domain.User;
 import ncu.cc.moonshine.services.IUserService;
 
