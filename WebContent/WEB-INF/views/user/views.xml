@@ -21,5 +21,9 @@
     <definition extends="tidy" name="user/delete">
         <put-attribute name="body" value="/WEB-INF/views/user/delete.jsp"/>
     </definition>
+    
+    <definition extends="tidy" name="user/dwr">
+        <put-attribute name="body" value="/WEB-INF/views/user/dwr.jsp"/>
+    </definition>
 
 </tiles-definitions>

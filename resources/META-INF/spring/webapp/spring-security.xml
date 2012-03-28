@@ -23,6 +23,7 @@ isFullyAuthenticated()	Returns true if the user is not an anonymous or a remembe
 		<form-login login-page="/login" authentication-failure-url="/login?login_error=t" />
 		<logout logout-url="/logout" />
 		<intercept-url pattern="/login**" access="permitAll()" />
+		<intercept-url pattern="/topbar/**" access="permitAll()" />
 		<intercept-url pattern="/resources/**" access="permitAll()" />
 		<intercept-url pattern="/user/add**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/user/modify**" access="hasRole('ROLE_ADMIN')" />

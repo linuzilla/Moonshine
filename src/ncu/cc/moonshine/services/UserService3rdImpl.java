@@ -11,7 +11,7 @@ import ncu.cc.moonshine.dao.IUserDao;
 import ncu.cc.moonshine.domain.User;
 import ncu.cc.moonshine.security.UserContextService;
 
-@Service
+@Service("userService")
 @Qualifier("dao")
 public class UserService3rdImpl implements IUserService {
 	@Autowired
@@ -41,6 +41,12 @@ public class UserService3rdImpl implements IUserService {
 	@Override
 	public void deleteUser(User user) {
 		userDao.delete(user);
+	}
+	
+	@Transactional
+	@Override
+	public void deleteUserById(Integer userId) {
+		userDao.deleteById(userId);
 	}
 
 	@Transactional

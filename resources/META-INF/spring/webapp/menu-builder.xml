@@ -8,7 +8,7 @@
 			<bean class="ncu.cc.webdev.services.MenuBuilderImpl" init-method="init">
 				<property name="menuFinders">
 					<list>
-						<bean class="ncu.cc.webdev.services.ByClassMenuFinder">
+						<bean class="ncu.cc.webdev.services.AnnotationMenuFinder">
 							<property name="finder">
 								<bean class="ncu.cc.webdev.services.ClassFinderImpl" />
 							</property>

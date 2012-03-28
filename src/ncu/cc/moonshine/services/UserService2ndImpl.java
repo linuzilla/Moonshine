@@ -38,7 +38,12 @@ public class UserService2ndImpl implements IUserService {
 	public void deleteUser(User user) {
 		entityManager.remove(entityManager.find(User.class, user.getUserId()));
 	}
-
+	
+	@Transactional
+	@Override
+	public void deleteUserById(Integer userId) {
+		entityManager.remove(entityManager.find(User.class, userId));
+	}
 
 	@Transactional(rollbackFor={ RuntimeException.class, SQLException.class }, noRollbackFor=Exception.class)
 	@Override
@@ -59,4 +64,5 @@ public class UserService2ndImpl implements IUserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

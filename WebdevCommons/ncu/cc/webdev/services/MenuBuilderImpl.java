@@ -12,7 +12,8 @@ public class MenuBuilderImpl implements IMenuBuilder {
 	private static final Logger logger = LoggerFactory.getLogger(MenuBuilderImpl.class);
 	
 	private List<IMenuFinder>	menuFinders;
-	private WebMenuNavigator	menuBar;
+	private WebMenuNavigator		nagivatorMenu;
+	final private WebMenuItemComparator	comparator = new WebMenuItemComparator();
 	
 	public List<IMenuFinder> getMenuFinders() {
 		return menuFinders;
@@ -23,17 +24,24 @@ public class MenuBuilderImpl implements IMenuBuilder {
 	}
 
 	public void init() {
-		menuBar = new WebMenuNavigator();
+		nagivatorMenu = new WebMenuNavigator();
 		
 		for (IMenuFinder menuFinder: this.menuFinders) {
-			menuFinder.addItems(menuBar);
+			menuFinder.addItems(nagivatorMenu);
 		}
+		
+		nagivatorMenu.reorder(comparator);
+		
 		logger.info("initialized");
+	}
+
+	public WebMenuNavigator getNagivatorMenu() {
+		return nagivatorMenu;
 	}
 
 	@Override
 	public WebMenuItem findMenuItem(List<String> pathList) {
-		return findMenuItem(null, this.menuBar.getNavigatorBar(), pathList, 0);
+		return findMenuItem(null, this.nagivatorMenu.getNavigatorBar(), pathList, 0);
 	}
 
 	private WebMenuItem findMenuItem(WebMenuItem rc, List<WebMenuItem> list,

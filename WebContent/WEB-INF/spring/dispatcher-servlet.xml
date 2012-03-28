@@ -19,6 +19,8 @@
 <!-- 	<mvc:default-servlet-handler/> -->
 
 	<mvc:view-controller path="/login" view-name="login"/>
+<!-- 	<mvc:view-controller path="/uncaughtException"/> -->
+<!-- 	<mvc:view-controller path="/resourceNotFound"/> -->
 
 	
 	<bean id="messageSource"

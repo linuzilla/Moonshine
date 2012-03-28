@@ -2,7 +2,11 @@ package ncu.cc.webdev.domain;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +35,7 @@ public class WebMenuNavigator {
 		return null;
 	}
 
-	public void addMenuItem(String path, Class<?> clazz, Method method) {
+	public void addMenuItem(String path, Class<?> clazz, Method method, int order, String[] authorities) {
 		String[]	paths = path.split("/");
 		
 		logger.info(path + ", " + clazz.getName() + ", " + (method == null ? "null" : method.getName()));
@@ -52,6 +56,22 @@ public class WebMenuNavigator {
 				ptr = new WebMenuItem();
 				ptr.setTag(paths[i]);
 				ptr.setParent(parent);
+				ptr.setOrder(order);
+				if (authorities != null && authorities.length > 0) {
+					if (authorities.length == 1 && "".equals(authorities[0])) {
+						ptr.setAuthorities(null);
+					} else {
+						Set<String> authSet = new HashSet<String>();
+						for (String auth: authorities) {
+							if (! "".equals(auth)) {
+								authSet.add(auth);
+							}
+						}
+						ptr.setAuthorities(authSet);
+					}
+				} else {
+					ptr.setAuthorities(null);
+				}
 				list.add(ptr);
 				//System.out.printf("[%s][%d][%s] (New)%n", path, i, paths[i]);
 			} else {
@@ -105,7 +125,22 @@ public class WebMenuNavigator {
 			printMenu(list.get(i).getSubMenu(), level + 1);
 		}
 	}
+	
 	public void printMenu() {
 		printMenu(this.menuBar, 0);
+	}
+	
+	private void reorder(List<WebMenuItem> list, Comparator<WebMenuItem> comparator) {
+		if (list != null && list.size() > 0) {
+			Collections.sort(list, comparator);
+			
+			for (WebMenuItem item: list) {
+				reorder(item.getSubMenu(), comparator);
+			}
+		}
+	}
+
+	public void reorder(Comparator<WebMenuItem> comparator) {
+		reorder(menuBar, comparator);
 	}
 }

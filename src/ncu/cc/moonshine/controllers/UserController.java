@@ -17,7 +17,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@MenuItem
+@MenuItem(order=100, authorities={ "ROLE_ADMIN" })
 @RequestMapping("/user")
 public class UserController {
 	@Autowired
@@ -45,6 +44,12 @@ public class UserController {
 	}
 	
 	@MenuItem
+	@RequestMapping(value = "/dwr", method=RequestMethod.GET)
+	public String dwr(Model model) {
+		return "user/dwr";
+	}
+	
+	@MenuItem(authorities="ROLE_ADMIN")
 	@RequestMapping(value = "/add", method=RequestMethod.GET)
 	public String addUser(Model model) {
 		model.addAttribute("userBean", new UserFormBean());
@@ -52,6 +57,7 @@ public class UserController {
 		model.addAttribute("roles", roleService.findAll());
 		return "user/add";
 	}
+
 
 	@RequestMapping(value = "/add", method=RequestMethod.POST)
 	public String addUser(@ModelAttribute("userBean") UserFormBean userBean, Model model) throws IllegalAccessException, InvocationTargetException {

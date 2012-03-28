@@ -36,6 +36,11 @@ public class UserServiceArrayListImpl implements IUserService {
 	public void deleteUser(User user) {
 		list.remove(user);
 	}
+	
+	@Override
+	public void deleteUserById(Integer userId) {
+		deleteUser(getUserById(userId));
+	}
 
 	@Override
 	public void modifyUser(User user) {
@@ -46,4 +51,6 @@ public class UserServiceArrayListImpl implements IUserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 }

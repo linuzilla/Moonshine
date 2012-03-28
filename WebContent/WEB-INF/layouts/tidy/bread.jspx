@@ -1,0 +1,20 @@
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" id="topnav" version="2.0">
+<jsp:output omit-xml-declaration="yes" />
+<div id="bread">
+<spring:url value="/" var="base_url" />
+<c:set value="" var="url" />
+<c:set value="" var="messagecode" />
+<a href="${base_url}">Home</a>
+<c:forEach var="item" items="${__SELECTED_ITEM__}">
+	<c:set value="${url}/${item.tag}" var="url" />
+	<c:set value="${messagecode}.${item.tag}" var="messagecode" />
+	<spring:url value="${url}" var="bread_url" />
+	|<a href="${bread_url}" target="_self"><spring:message code="menu${messagecode}" text="menu${messagecode}" /></a>
+</c:forEach> &amp;gt;
+<hr wight="%100"/>
+</div>
+</div>

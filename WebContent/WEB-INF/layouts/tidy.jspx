@@ -7,19 +7,25 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=8" />	
+		<script type="text/javascript">
+			var timeout         = 500;
+			var closetimer		= 0;
+			var ddmenuitem      = 0;
+		</script>
 		<util:load-links />
 		<spring:message code="application_name" text="application_name" var="app_name"/>
-		<spring:url value="/" var="home_url" />
 		<title><spring:message code="welcome_h3" text="welcome_h3 {0}" arguments="${app_name}" /></title>
 	</head>
 	<body>
-		<div id="header">&amp;nbsp;<a href="${home_url}"><spring:message code="welcome_h3" text="welcome_h3 {0}" arguments="${app_name}" /></a>
+		<spring:url value="/" var="home_url"/>
+		<div id="header"><a href="${home_url}"><spring:message code="welcome_h3" text="welcome_h3 {0}" arguments="${app_name}" /></a>
 			<span class="headertitleurl"></span>
 			<tiles:insertAttribute name="topbar" ignore="true"/>
 		</div>
 		<tiles:insertAttribute name="topnav" ignore="true"/>
 		<div id="container">
 			<div id="midcolumn">
+				<tiles:insertAttribute name="bread" ignore="true"/>
 				<tiles:insertAttribute name="body" />
 			</div>
 		</div>

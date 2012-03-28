@@ -9,6 +9,7 @@
   	<put-attribute name="header" value="/WEB-INF/layouts/tidy/header.jspx" />
   	<put-attribute name="topbar" value="/WEB-INF/layouts/tidy/topbar.jspx" />
   	<put-attribute name="topnav" value="/WEB-INF/layouts/tidy/topnav.jspx" />
+  	<put-attribute name="bread" value="/WEB-INF/layouts/tidy/bread.jspx" />
     <put-attribute name="footer" value="/WEB-INF/layouts/tidy/footer.jspx" />
   </definition>
   

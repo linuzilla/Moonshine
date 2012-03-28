@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://getahead.org/dwr/dwr30.dtd">
+
+<dwr>
+	<allow>	    
+	    <create creator="spring" javascript="UserService">
+			<param name="beanName" value="userService"/>
+			<include method="findAll" />
+			<include method="getUserById" />
+			<include method="getUserByName" />
+			<include method="addUser" />
+			<include method="deleteUserById" />
+	    </create>
+	    
+	    <convert match="ncu.cc.moonshine.domain.User" converter="bean"/>
+	    <convert match="ncu.cc.moonshine.domain.Role" converter="bean">
+	    		<param name="exclude" value="users,roleRights"/>
+	    </convert>
+    
+	</allow>
+</dwr>
+
+

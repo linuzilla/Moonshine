@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@MenuItem
+@MenuItem(order=200)
 @RequestMapping("/role")
 public class RoleController {
 	public static final String	HOME_PAGE = "role/home";

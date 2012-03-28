@@ -88,6 +88,26 @@ public class UserServiceImpl implements IUserService {
 			if (entityManager != null) entityManager.close();
 		}
 	}
+	
+
+	@Override
+	public void deleteUserById(Integer userId) {
+		EntityManager entityManager = null;
+		EntityTransaction tx = null;
+		try {
+			entityManager = entityManagerFactory.createEntityManager();
+			tx = entityManager.getTransaction();
+			tx.begin();
+			entityManager.remove(entityManager.find(User.class, userId));
+			tx.commit();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) tx.rollback();
+			throw e;
+		} finally {
+			if (entityManager != null) entityManager.close();
+		}
+	}
 
 	@Override
 	public void modifyUser(User user) {
@@ -114,4 +134,5 @@ public class UserServiceImpl implements IUserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

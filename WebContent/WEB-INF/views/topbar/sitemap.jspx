@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <div xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:spring="http://www.springframework.org/tags"
-	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" id="topnav" version="2.0">
-<jsp:output omit-xml-declaration="yes" />
-<ul id="oneLevelMenu">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	version="2.0">
+
+    <jsp:output omit-xml-declaration="yes"/>
+<ul>
 <spring:url value="/" var="base_url" />
 <c:forEach var="item" items="${__MENU__}">
 	<li><a href="${base_url}${item.tag}" target="_self"><spring:message code="menu.${item.tag}" text="menu.${item.tag}" /></a>
@@ -18,5 +19,4 @@
 	</li>
 </c:forEach>
 </ul>
-<div id="topnavsep"></div>
 </div>

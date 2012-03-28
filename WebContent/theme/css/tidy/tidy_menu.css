@@ -1,3 +1,4 @@
+@charset "utf-8";
 /* menu styles */
 #oneLevelMenu
 {	margin: 0;
@@ -7,17 +8,17 @@
 #oneLevelMenu li
 {	float: left;
 	list-style: none;
-	font: 12px Tahoma, Arial;
+	font: 12pt Tahoma, Arial;
 }
 
 #oneLevelMenu li a
 {
 	display: block;
-	background: #547CA6;
+	background: #174F89;
 	padding: 5px 12px;
 	text-decoration: none;
 	border-right: 1px solid white;
-	width: 70px;
+	width: 100px;
 	color: #EAFFED;
 	white-space: nowrap;
 }
@@ -44,13 +45,18 @@
 #oneLevelMenu li ul li a
 {	
 	width: auto;
-	background: #1F6CBD;
-	color: #FFFFFF;
-   /*-moz-opacity:0.9;  Moz + FF 透明度20%*/
-   /* opacity: 0.9;  支持CSS3的浏览器（FF 1.5也支持）透明度20%*/
+	background: #e3f6ff;
+	color: #333333;
+	border-bottom: 1px solid #DDD;
+	border-left: 1px solid #DDD;
+	border-right: 1px solid #DDD;
+	/*
+   moz-opacity:0.9;
+   opacity: 0.9;
+   */
 }
 			
 #oneLevelMenu li ul li a:hover
 {	
-	background: #7A9ABC;
+	background: #cfeef5;
 }
