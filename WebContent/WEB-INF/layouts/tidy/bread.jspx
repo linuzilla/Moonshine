@@ -9,7 +9,7 @@
 <c:set value="" var="url" />
 <c:set value="" var="messagecode" />
 <a href="${base_url}">Home</a>
-<c:forEach var="item" items="${__SELECTED_ITEM__}">
+<c:forEach var="item" items="${__MENUPATH__}">
 	<c:set value="${url}/${item.tag}" var="url" />
 	<c:set value="${messagecode}.${item.tag}" var="messagecode" />
 	<spring:url value="${url}" var="bread_url" />
