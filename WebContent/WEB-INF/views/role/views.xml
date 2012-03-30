@@ -17,5 +17,9 @@
     <definition extends="tidy" name="role/modify">
         <put-attribute name="body" value="/WEB-INF/views/role/modify.jsp"/>
     </definition>
+    
+	<definition extends="tidy" name="role/dwr">
+        <put-attribute name="body" value="/WEB-INF/views/role/dwr.jsp"/>
+    </definition>
 
 </tiles-definitions>

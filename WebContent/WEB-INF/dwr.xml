@@ -12,7 +12,14 @@
 			<include method="deleteUserById" />
 	    </create>
 	    
+	    <create creator="spring" javascript="RoleService">
+			<param name="beanName" value="roleService"/>
+			<include method="findAll" />
+			<include method="getRoleByName" />
+	    </create>
+	    
 	    <convert match="ncu.cc.moonshine.domain.User" converter="bean"/>
+	    
 	    <convert match="ncu.cc.moonshine.domain.Role" converter="bean">
 	    		<param name="exclude" value="users,roleRights"/>
 	    </convert>

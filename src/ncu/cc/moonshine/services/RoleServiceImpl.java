@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ncu.cc.moonshine.dao.IRoleDao;
 import ncu.cc.moonshine.domain.Role;
 
-@Service
+@Service("roleService")
 public class RoleServiceImpl implements IRoleService {
 	@Autowired
 	private IRoleDao		roleDao;

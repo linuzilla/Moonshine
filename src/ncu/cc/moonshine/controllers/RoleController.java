@@ -26,6 +26,7 @@ public class RoleController {
 	public static final String	MODIFY_OK = "redirect:/role";
 	public static final String	DELETE_OK = "redirect:/role";
 	public static final String	ERROR_PAGE = "redirect:/";
+	public static final String	DWR_PAGE = "role/dwr";
 	
 	@Autowired
 	private IRoleService roleService;
@@ -42,6 +43,12 @@ public class RoleController {
 	public String addRole(ModelMap model) {
 		model.addAttribute("roleBean", new Role());
 		return ADD_PAGE;
+	}
+	
+	@MenuItem
+	@RequestMapping(value = "/dwr", method=RequestMethod.GET)
+	public String dwr() {
+		return DWR_PAGE;
 	}
 
 	@RequestMapping(value = "/add", method=RequestMethod.POST)
