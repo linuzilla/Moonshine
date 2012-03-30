@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import flexjson.JSONSerializer;
+
 import ncu.cc.moonshine.dao.IRoleDao;
 import ncu.cc.moonshine.domain.Role;
 
@@ -57,4 +59,7 @@ public class RoleServiceImpl implements IRoleService {
 		roleDao.remove(roleDao.findById(roleId));
 	}
 
+	public String getRoleInJson(String roleName) {
+		return new JSONSerializer().serialize(getRoleByName(roleName));
+	}
 }
