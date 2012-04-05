@@ -1,6 +1,5 @@
 package ncu.cc.moonshine.controllers;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,9 +10,10 @@ import ncu.cc.moonshine.domain.User;
 import ncu.cc.moonshine.domain.formbeans.UserFormBean;
 import ncu.cc.moonshine.services.IRoleService;
 import ncu.cc.moonshine.services.IUserService;
+import ncu.cc.moonshine.services.SerializeService;
 import ncu.cc.webdev.annotations.MenuItem;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 @Controller
 @MenuItem(order=100, authorities={ "ROLE_ADMIN" })
 @RequestMapping("/user")
@@ -35,6 +36,8 @@ public class UserController {
 	private IUserService		userService;
 	@Autowired
 	private IRoleService		roleService;
+	@Autowired
+	private SerializeService	jsonSerializeService;
 	
 	@MenuItem
 	@RequestMapping(method=RequestMethod.GET)
@@ -49,6 +52,14 @@ public class UserController {
 		return "user/dwr";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/json/{userName}", method=RequestMethod.GET, produces="application/json")
+	public String getUser(@PathVariable String userName) {
+        String rc = jsonSerializeService.jsonSerialize(userService.getUserByName(userName));
+        System.out.println(rc);
+        return rc;
+	}
+	
 	@MenuItem(authorities="ROLE_ADMIN")
 	@RequestMapping(value = "/add", method=RequestMethod.GET)
 	public String addUser(Model model) {
@@ -60,15 +71,14 @@ public class UserController {
 
 
 	@RequestMapping(value = "/add", method=RequestMethod.POST)
-	public String addUser(@ModelAttribute("userBean") UserFormBean userBean, Model model) throws IllegalAccessException, InvocationTargetException {
+	public String addUser(@ModelAttribute("userBean") UserFormBean userBean, Model model)  {
 		User user = userFrom2user(new User(), userBean);
 		userService.addUser(user);
 		return "redirect:/user";
 	}
 
-	private User userFrom2user(User user, UserFormBean userBean)
-			throws IllegalAccessException, InvocationTargetException {	
-		BeanUtils.copyProperties(user, userBean);
+	private User userFrom2user(User user, UserFormBean userBean) {	
+		BeanUtils.copyProperties(userBean, user);
 		
 		if (userBean.getRoleNames() != null) {
 			List<Role> roleList = new ArrayList<Role>();
@@ -86,10 +96,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/modify/{userid}", method=RequestMethod.GET)
-	public String modifyUser(@PathVariable Integer userid, Model model) throws IllegalAccessException, InvocationTargetException {
+	public String modifyUser(@PathVariable Integer userid, Model model)  {
 		UserFormBean formBean = new UserFormBean();
 		User user = userService.getUserById(userid);
-		BeanUtils.copyProperties(formBean, user);
+		BeanUtils.copyProperties(user, formBean);
 		if (user.getRoles() != null && user.getRoles().size() > 0) {
 			Set<String> roleNames = new HashSet<String>();
 			for (Role role: user.getRoles()) {
@@ -103,7 +113,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/modify/{userid}", method=RequestMethod.POST)
-	public String modifyUser(@ModelAttribute("userBean") UserFormBean userBean, @PathVariable Integer userid, Model model) throws IllegalAccessException, InvocationTargetException {
+	public String modifyUser(@ModelAttribute("userBean") UserFormBean userBean, @PathVariable Integer userid, Model model) {
 		User u = userService.getUserById(userid);
 		userBean.setUserId(u.getUserId());
 		userBean.setCreatedBy(u.getCreatedBy());

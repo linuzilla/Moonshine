@@ -6,8 +6,8 @@
   <spring:url value="/resources/theme/css/tidy/tidy_layout.css" var="tidy_layout_url" />
   <spring:url value="/resources/theme/css/tidy/tidy_menu.css" var="tidy_menu_url" />
   <spring:url value="/resources/theme/css/tidy/tidy_table.css" var="tidy_table_url" />
-  <spring:url value="/resources/theme/js/jquery-1.6.2.min.js" var="jquery_min_url" />
-  <spring:url value="/resources/theme/js/jquery-ui.min.js" var="jquery_ui_min_url" />
+  <spring:url value="/resources/theme/js/jquery-1.7.2.min.js" var="jquery_min_url" />
+  <spring:url value="/resources/theme/js/jquery-ui-1.8.18.custom.min.js" var="jquery_ui_min_url" />
   <spring:url value="/resources/theme/js/one_level_menu.js" var="one_level_menu_url" />
   
   <link rel="shortcut icon" href="${favicon_url}" /> 
