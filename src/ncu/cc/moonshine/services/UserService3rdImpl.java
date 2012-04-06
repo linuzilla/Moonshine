@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class UserService3rdImpl implements IUserService {
 	private UserContextService userContextService;
 
 	@Override
+	@Secured("ROLE_ADMIN")
 	public List<User> findAll() {
 		return userDao.findAll();
 	}
@@ -30,6 +32,7 @@ public class UserService3rdImpl implements IUserService {
 		return userDao.findById(userId);
 	}
 
+	
 	@Transactional
 	@Override
 	public void addUser(User user) {
@@ -55,6 +58,8 @@ public class UserService3rdImpl implements IUserService {
 		userDao.merge(user);
 	}
 
+
+	// @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 	@Override
 	public User getUserByName(String username) {
 		List<User> list = userDao.findByProperty("name", username);

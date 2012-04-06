@@ -26,9 +26,38 @@
 </c:forEach>
 </table>
 
+<br /><br /><hr /><br /><br />
+
 <spring:url value="/user/json" var="json_url" />
 <script type="text/javascript">
-    function callGetUser(){
+
+function callGetAll() {
+	$.ajax({
+		url: '${json_url}',
+		dataType: 'json',
+		type: 'Get',
+		timeout: 5000,
+		success: function(data) {
+			var r = new Array(), j = -1;
+			r[++j] = '<tr><th>UserId</th><th>Name</th><th>Email</th></tr>';
+			for (var key=0, size=data.length; key < size; key++) {
+				r[++j] ='<tr><td>';
+				r[++j] = data[key].userId;
+				r[++j] = '</td><td class="whatever1">';
+				r[++j] = data[key].name;
+				r[++j] = '</td><td class="whatever2">';
+				r[++j] = data[key].email;
+				r[++j] = '</td></tr>';
+			}
+			$('#dataTable').html(r.join('')); 
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown){
+			alert(textStatus);
+		}
+	});
+}
+
+function callGetUser(){
     	var name=$('#getUserForm input[name=username]').val();
        
     	if (name != "") {
@@ -56,7 +85,9 @@
 	    		}
 	    	});
     	}
-    }
+}
+
+$(document).ready(function() { callGetAll(); });
 </script>
 <div>
 <form id="getUserForm" >
@@ -64,13 +95,17 @@
 <input type="text" name="username" />
 <input type="button" value="GetUser" onClick="callGetUser()"/></form>
 </div>
-<hr />
 <table id="table" style="display:none;"><tr><td>
 UserId: <span id="userid"></span><br />
 Name: <span id="uname"></span><br />
 Email: <span id="email"></span><br />
 Created By: <span id="createdBy"></span><br />
 </td></tr></table>
+<br /><br /><hr /><br /><br />
+
+<table id="dataTable"></table>
+
+<br /><br /><hr /><br /><br />
 
 <a href="<spring:url value="/user/add" />">Add user</a><br />
 <a href="<spring:url value="/role" />">Role Management</a>

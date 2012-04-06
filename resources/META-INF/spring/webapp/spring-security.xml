@@ -23,14 +23,19 @@ isFullyAuthenticated()	Returns true if the user is not an anonymous or a remembe
 		<form-login login-page="/login" authentication-failure-url="/login?login_error=t" />
 		<logout logout-url="/logout" />
 		<intercept-url pattern="/login**" access="permitAll()" />
+		<intercept-url pattern="/dwr/**" access="permitAll()" />
 		<intercept-url pattern="/topbar/**" access="permitAll()" />
 		<intercept-url pattern="/resources/**" access="permitAll()" />
 		<intercept-url pattern="/user/add**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/user/modify**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/user/modify/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/user/delete**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />
+		
+		<session-management>
+			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+		</session-management>
 	</http>
-	
+
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider>
 			<password-encoder hash="md5" />
@@ -40,4 +45,7 @@ isFullyAuthenticated()	Returns true if the user is not an anonymous or a remembe
 		</authentication-provider>
 		<authentication-provider ref="authenticationProvider"/>
 	</authentication-manager>
+	
+	<global-method-security secured-annotations="enabled">
+	</global-method-security>
 </b:beans>

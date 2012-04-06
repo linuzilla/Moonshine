@@ -10,7 +10,7 @@ import ncu.cc.moonshine.domain.User;
 import ncu.cc.moonshine.domain.formbeans.UserFormBean;
 import ncu.cc.moonshine.services.IRoleService;
 import ncu.cc.moonshine.services.IUserService;
-import ncu.cc.moonshine.services.SerializeService;
+import ncu.cc.moonshine.services.SerializationService;
 import ncu.cc.webdev.annotations.MenuItem;
 
 import org.springframework.beans.BeanUtils;
@@ -37,7 +37,7 @@ public class UserController {
 	@Autowired
 	private IRoleService		roleService;
 	@Autowired
-	private SerializeService	jsonSerializeService;
+	private SerializationService	serializationService;
 	
 	@MenuItem
 	@RequestMapping(method=RequestMethod.GET)
@@ -54,8 +54,17 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/json/{userName}", method=RequestMethod.GET, produces="application/json")
-	public String getUser(@PathVariable String userName) {
-        String rc = jsonSerializeService.jsonSerialize(userService.getUserByName(userName));
+	public String jsonGetUser(@PathVariable String userName) {
+        String rc = serializationService.jsonSerialize(userService.getUserByName(userName));
+        System.out.println(rc);
+        return rc;
+	}
+	
+	@MenuItem
+	@ResponseBody
+	@RequestMapping(value = "/json", method=RequestMethod.GET, produces="application/json")
+	public String jsonGetAll() {
+        String rc = serializationService.jsonSerialize(userService.findAll());
         System.out.println(rc);
         return rc;
 	}
