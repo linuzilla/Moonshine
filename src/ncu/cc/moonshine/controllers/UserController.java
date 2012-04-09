@@ -53,7 +53,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/json/{userName}", method=RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/json/{userName}", method=RequestMethod.GET, produces="application/json; charset=UTF-8")
 	public String jsonGetUser(@PathVariable String userName) {
         String rc = serializationService.jsonSerialize(userService.getUserByName(userName));
         System.out.println(rc);
@@ -62,7 +62,7 @@ public class UserController {
 	
 	@MenuItem
 	@ResponseBody
-	@RequestMapping(value = "/json", method=RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/json", method=RequestMethod.GET, produces="application/json; charset=UTF-8")
 	public String jsonGetAll() {
         String rc = serializationService.jsonSerialize(userService.findAll());
         System.out.println(rc);
