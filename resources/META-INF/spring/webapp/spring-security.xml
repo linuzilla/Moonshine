@@ -2,8 +2,9 @@
 <b:beans xmlns="http://www.springframework.org/schema/security"
 	xmlns:b="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 <!--
 Expression	Description
@@ -44,8 +45,36 @@ isFullyAuthenticated()	Returns true if the user is not an anonymous or a remembe
 			</user-service>
 		</authentication-provider>
 		<authentication-provider ref="authenticationProvider"/>
+		<authentication-provider ref="ldapAuthProvider"/>
 	</authentication-manager>
 	
 	<global-method-security secured-annotations="enabled">
 	</global-method-security>
+	
+	<b:bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+		<b:constructor-arg value="ldap://140.115.17.30:389/dc=cc,dc=ncu"/>
+	</b:bean>
+
+	<b:bean id="ldapAuthProvider"
+			class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+		<b:constructor-arg>
+			<b:bean 	class="org.springframework.security.ldap.authentication.BindAuthenticator">
+				<b:constructor-arg ref="contextSource"/>
+				<b:property name="userDnPatterns">
+					<b:list>
+						<b:value>uid={0},ou=People</b:value>
+					</b:list>
+				</b:property>
+			</b:bean>
+		</b:constructor-arg>
+		<b:constructor-arg>
+			<b:bean class="ncu.cc.webdev.security.NcuccLdapAuthoritiesPopulator">
+				<b:constructor-arg ref="contextSource"/>
+			</b:bean>
+		</b:constructor-arg>
+		<b:property name="userDetailsContextMapper">
+			<b:bean class="ncu.cc.moonshine.security.UserDetailsContextMapperImpl"
+				p:userService-ref="userService"/>
+		</b:property>
+	</b:bean>
 </b:beans>

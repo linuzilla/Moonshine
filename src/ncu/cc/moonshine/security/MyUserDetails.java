@@ -32,6 +32,13 @@ public class MyUserDetails extends User implements UserDetails {
 		}
 	}
 
+	public void addAuthoritie(GrantedAuthority authoritie) {
+		if (this.authorities == null) {
+			this.authorities = new HashSet<GrantedAuthority>();
+		}
+		this.authorities.add(authoritie);
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
