@@ -3,8 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <spring:url value="/user/modify" var="modify_url" />
 <spring:url value="/user/delete" var="delete_url" />
+<spring:url value="/resources/images/delete.png" var="delete_image" />
 
 <h1>Hi, <security:authentication property="principal.username" /></h1>
 
@@ -21,6 +24,19 @@
 			]</td>
 		<td>${user.createdBy}</td>
 		<td><a href="${modify_url}/${user.userId}">modify</a></td>
+		<td>
+			<spring:url value="/user/delete/${user.userId}" var="delete_form_url" />
+			<spring:url value="/resources/images/delete.png" var="delete_image_url" />
+			<form:form action="${fn:escapeXml(delete_form_url)}" method="DELETE">
+                <spring:message text="Delete" code="entity_delete" var="delete_label" />
+                <c:set var="delete_confirm_msg">
+                  <spring:escapeBody javaScriptEscape="true">
+                    <spring:message code="entity_delete_confirm" text="Confirm" />
+                  </spring:escapeBody>
+                </c:set>
+                <input alt="${fn:escapeXml(delete_label)}" class="image" src="${fn:escapeXml(delete_image_url)}" title="${fn:escapeXml(delete_label)}" type="image" value="${fn:escapeXml(delete_label)}" onclick="return confirm('${delete_confirm_msg}');" />
+              </form:form>
+		</td>
 		<td><a href="${delete_url}?userId=${user.userId}">delete</a></td>
 	</tr>
 </c:forEach>
@@ -52,7 +68,7 @@ function callGetAll() {
 			$('#dataTable').html(r.join('')); 
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown){
-			alert(textStatus);
+			alert("oops! " + textStatus);
 		}
 	});
 }

@@ -136,6 +136,12 @@ public class UserController {
 		return "redirect:/user";
 	}
 	
+	@RequestMapping(value = "/delete/{userid}", method=RequestMethod.DELETE)
+	public String deleteUserViaREST(@PathVariable Integer userid) {
+		userService.deleteUser(userService.getUserById(userid));
+		return "redirect:/user";
+	}
+	
 	@ExceptionHandler(RuntimeException.class)
 	public String handleRuntimeException(RuntimeException e) {
 		e.printStackTrace();

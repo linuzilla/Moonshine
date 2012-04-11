@@ -21,6 +21,16 @@
 	<listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>
+	
+<!-- 	<filter> -->
+<!-- 		<filter-name>Spring OpenEntityManagerInViewFilter</filter-name> -->
+<!-- 		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class> -->
+<!-- 	</filter> -->
+    
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>Spring OpenEntityManagerInViewFilter</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
 
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -31,7 +41,7 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -47,6 +57,16 @@
     
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+	<filter>
+        <filter-name>HttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>HttpMethodFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
