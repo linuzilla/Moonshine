@@ -35,9 +35,9 @@ public class SerializationServiceImpl implements SerializationService {
 	@Override
 	public String jsonSerialize(Object target) {
 		// return new Gson().toJson(target);
-		// return new JSONSerializer().prettyPrint(true).deepSerialize(target);
+		return new JSONSerializer().prettyPrint(true).deepSerialize(target);
 		// return new GsonBuilder().setPrettyPrinting().create().toJson(target);
-		return new GsonBuilder().setExclusionStrategies(exclusionStrategy).setPrettyPrinting().create().toJson(target);
+		// return new GsonBuilder().setExclusionStrategies(exclusionStrategy).setPrettyPrinting().create().toJson(target);
 		//return new JSONSerializer().prettyPrint(true).serialize(target);
 	}
 }

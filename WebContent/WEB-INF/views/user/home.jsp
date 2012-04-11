@@ -123,5 +123,47 @@ Created By: <span id="createdBy"></span><br />
 
 <br /><br /><hr /><br /><br />
 
+<form id="testForm">
+  <div><input type="text" name="a" value="1" id="a" /></div>
+  <div><input type="text" name="b" value="2" id="b" /></div>
+  <div><input type="hidden" name="c" value="3" id="c" /></div>
+  <div>
+    <textarea name="d" rows="8" cols="40">4</textarea>
+  </div>
+  <div><select name="e">
+    <option value="5" selected="selected">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select></div>
+  <div>
+    <input type="checkbox" name="f" value="8" id="f" />
+  </div>
+  <div>
+    <input type="submit" name="g" value="Submit" id="g" />
+  </div>
+</form>
+<script type="text/javascript">
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name]) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+$('#testForm').submit(function() {
+  alert($(this).serializeObject());
+  return false;
+});
+</script>
+
 <a href="<spring:url value="/user/add" />">Add user</a><br />
 <a href="<spring:url value="/role" />">Role Management</a>
