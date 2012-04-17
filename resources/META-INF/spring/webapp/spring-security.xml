@@ -20,7 +20,8 @@ isAuthenticated()	Returns true if the user is not anonymous
 isFullyAuthenticated()	Returns true if the user is not an anonymous or a remember-me user
 -->
 
-	<http use-expressions="true">
+	<http use-expressions="true" auto-config="false"
+		entry-point-ref="LoginUrlAuthenticationEntryPoint">
 		<form-login login-page="/login" authentication-failure-url="/login?login_error=t" />
 		<logout logout-url="/logout" />
 		<intercept-url pattern="/login**" access="permitAll()" />
@@ -32,6 +33,9 @@ isFullyAuthenticated()	Returns true if the user is not an anonymous or a remembe
 		<intercept-url pattern="/user/delete**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 		
+<!-- 		<custom-filter ref="ncuPortalFilter" -->
+<!-- 			position="FORM_LOGIN_FILTER" /> -->
+			
 		<session-management>
 			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
 		</session-management>
@@ -48,9 +52,16 @@ isFullyAuthenticated()	Returns true if the user is not an anonymous or a remembe
 		<authentication-provider ref="ldapAuthProvider"/>
 	</authentication-manager>
 	
-	<global-method-security secured-annotations="enabled">
+	<global-method-security secured-annotations="enabled" pre-post-annotations="enabled">
+		<expression-handler ref="expHandler"/>
 	</global-method-security>
-	
+
+
+	<b:bean id="LoginUrlAuthenticationEntryPoint"
+				class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint"
+			p:loginFormUrl="/login">
+	</b:bean>
+
 	<b:bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
 		<b:constructor-arg value="ldap://140.115.17.30:389/dc=cc,dc=ncu"/>
 	</b:bean>
@@ -77,4 +88,26 @@ isFullyAuthenticated()	Returns true if the user is not an anonymous or a remembe
 				p:userService-ref="userService"/>
 		</b:property>
 	</b:bean>
+	
+	<b:bean id="expHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+		<b:property name="permissionEvaluator">
+			<b:bean  class="ncu.cc.moonshine.security.MyPermisstionEvaluator"/>
+		</b:property>
+<!-- 		<b:property name="roleHierarchy"> -->
+<!-- 			<b:bean class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl"> -->
+<!-- 				<b:property name="hierarchy"> -->
+<!-- 					<b:value> -->
+<!-- 						ROLE_ADMIN > ROLE_USER -->
+<!-- 						ROLE_USER > ROLE_VISITOR -->
+<!-- 					</b:value> -->
+<!-- 				</b:property> -->
+<!-- 			</b:bean> -->
+<!-- 		</b:property> -->
+	</b:bean>
+	
+<!-- 	<b:bean id="ncuPortalFilter" class="ncu.cc.moonshine.security.NcuPortalFilter" -->
+<!-- 		p:keyURL="http://127.0.0.1/SSOWeb/decodeKey" -->
+<!-- 		p:validUsernamePattern="^[_a-zA-Z0-9]+$" -->
+<!-- 		p:userDetailsProvider-ref="authenticationProvider" /> -->
+		
 </b:beans>

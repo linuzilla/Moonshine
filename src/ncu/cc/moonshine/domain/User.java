@@ -16,7 +16,7 @@ import java.util.List;
 	@NamedQuery(name = "findAll", query = "SELECT a FROM User a"),
 	@NamedQuery(name = "findByName", query = "SELECT a FROM User a WHERE name=:name")
 })
-public class User implements Serializable {
+public class User implements Serializable,SecureEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -45,6 +45,9 @@ public class User implements Serializable {
 			}
 		)
 	private List<Role> roles;
+    
+    @Transient
+    private transient boolean	deletable = false;
 
     public User() {
     }
@@ -88,5 +91,12 @@ public class User implements Serializable {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-	
+
+	public boolean isDeletable() {
+		return deletable;
+	}
+
+	public void setDeletable(boolean deletable) {
+		this.deletable = deletable;
+	}
 }

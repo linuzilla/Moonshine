@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service("authenticationProvider")
-public class MyAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider implements AuthenticationProvider {
+public class MyAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider implements AuthenticationProvider,UserDetailsProvider {
 	@Autowired
 	@Qualifier("dao")
 	private IUserService    userService;
@@ -35,6 +35,11 @@ public class MyAuthenticationProvider extends AbstractUserDetailsAuthenticationP
 	protected UserDetails retrieveUser(String username,
 			UsernamePasswordAuthenticationToken token)
 			throws AuthenticationException {
+		return retrieveUser(username);
+	}
+
+	@Override
+	public UserDetails retrieveUser(String username) {
 		User user = userService.getUserByName(username);
 		
 		if (user == null)

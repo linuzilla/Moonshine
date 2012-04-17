@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +24,9 @@ public class UserService3rdImpl implements IUserService {
 	private UserContextService userContextService;
 
 	@Override
-	@Secured("ROLE_ADMIN")
+	// @Secured("ROLE_ADMIN")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SYSOP')")
+	@PostFilter("hasPermission(filterObject, 'list')")
 	public List<User> findAll() {
 		return userDao.findAll();
 	}
@@ -42,6 +46,7 @@ public class UserService3rdImpl implements IUserService {
 
 	@Transactional
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') and #user.createdBy == authentication.name")
 	public void deleteUser(User user) {
 		userDao.delete(user);
 	}
@@ -54,6 +59,7 @@ public class UserService3rdImpl implements IUserService {
 
 	@Transactional
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') and hasPermission(#user, 'modify')")
 	public void modifyUser(User user) {
 		userDao.merge(user);
 	}

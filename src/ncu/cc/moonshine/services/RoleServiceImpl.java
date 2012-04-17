@@ -3,6 +3,7 @@ package ncu.cc.moonshine.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +50,7 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Transactional
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') and hasPermission(#role, 'modify')")
 	public void modifyRole(Role role) {
 		roleDao.merge(role);
 	}
